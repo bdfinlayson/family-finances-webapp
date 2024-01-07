@@ -3,20 +3,34 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Auth0ProviderWithHistory} from "./components/auth/Auth0ProviderWithHistory";
+import {Dashboard} from "./components/dashboard/Dashboard";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const Root = () => (
+    <Auth0ProviderWithHistory>
+        <App />
+    </Auth0ProviderWithHistory>
+)
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Root />
+    },
+    {
+        path: '/dashboard',
+        element: <Dashboard />
+    }
+])
+
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-          <Auth0ProviderWithHistory>
-              <App />
-          </Auth0ProviderWithHistory>
-      </BrowserRouter>
+      <RouterProvider router={router} />
   </React.StrictMode>
 );
 
